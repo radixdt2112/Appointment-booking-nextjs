@@ -2,15 +2,16 @@ const UserModel = require("../models/users");
 const jwt = require('jsonwebtoken');
 
 export const login = async (req, res) => {
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
     const result = await UserModel.find({ email: email });
     if (result.length === 0) {
         res.send({ msg: "register first" });
     } else {
         const check = await verify(password, result[0].password)
         if (check) {
-            const token = jwt.sign({ email: email, role: role }, 'AppointmentBooking', { expiresIn: '3d' });
-            res.send(token);
+            const token = jwt.sign({ email: email, role: result.role }, 'AppointmentBooking', { expiresIn: '3d' });
+            console.log(result);
+            res.send({ name: result[0].name, jwtToken: token, role: result[0].role });
         }
         else {
             res.send('email and password not matched');

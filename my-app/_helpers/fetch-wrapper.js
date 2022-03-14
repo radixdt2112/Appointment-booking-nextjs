@@ -1,5 +1,5 @@
-import config from '../config.js';
-import { accountService } from '_services';
+import { config } from '../config.js';
+import { userService } from '../_services';
 
 export const fetchWrapper = {
     get,
@@ -71,6 +71,7 @@ function authHeader(url) {
     // return auth header with jwt if user is logged in and request is to the api url
     const user = JSON.parse(localStorage.getItem('user'));
     const isLoggedIn = user && user.jwtToken;
+    console.log(user);
     const isApiUrl = url.startsWith(config.apiUrl);
     if (isLoggedIn && isApiUrl) {
         return { Authorization: `Bearer ${user.jwtToken}` };
@@ -85,10 +86,9 @@ function handleResponse(response) {
         if (!response.ok) {
             // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
             if (
-                [401, 403].includes(response.status) &&
-                accountService.userValue
+                [401, 403].includes(response.status)
             ) {
-                accountService.logout();
+                userService.logout();
             }
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
