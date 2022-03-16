@@ -5,6 +5,8 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true },
     contactNo: { type: String, required: true },
     gender: { type: String, required: true, enum: ['Male', 'Female'] },
+    isActive: { type: Boolean, default: false },
+    otp: { type: String, default: '' },
     password: { type: String, required: true },
     role: {
         type: mongoose.Schema.Types.ObjectId,

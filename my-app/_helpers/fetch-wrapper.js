@@ -19,6 +19,7 @@ function get(url) {
 }
 
 function post(url, body) {
+    console.log(JSON.stringify(body));
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },
@@ -71,7 +72,6 @@ function authHeader(url) {
     // return auth header with jwt if user is logged in and request is to the api url
     const user = JSON.parse(localStorage.getItem('user'));
     const isLoggedIn = user && user.jwtToken;
-    console.log(user);
     const isApiUrl = url.startsWith(config.apiUrl);
     if (isLoggedIn && isApiUrl) {
         return { Authorization: `Bearer ${user.jwtToken}` };

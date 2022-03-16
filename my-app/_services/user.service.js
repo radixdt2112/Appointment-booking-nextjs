@@ -8,12 +8,39 @@ const login = (params) => {
         .post(`${baseUrl}/login`, params)
         .then((response) => {
             const user = response.data;
-            console.log(user);
-            // publish user to subscribers and start timer to refresh token
             localStorage.setItem('user', JSON.stringify(user));
             return user;
         });
 };
+
+const register = (params) => {
+    return fetchWrapper
+        .post(`${baseUrl}/register`, params)
+        .then((response) => {
+            const user = response.data;
+            console.log(user);
+            return user;
+        });
+}
+
+const sendOtp = (params) => {
+    return fetchWrapper
+        .post(`${baseUrl}/sendMail`, params)
+        .then((response) => {
+            const data = response.data;
+            return data;
+        })
+}
+
+const verifyOtp = (params) => {
+    return fetchWrapper
+        .post(`${baseUrl}/verifyOtp`, params)
+        .then((response) => {
+            console.log('>>>>>>>>>>>>>>>>>  ', response.data);
+            const data = response.data;
+            return data;
+        })
+}
 
 const logout = () => {
     localStorage.removeItem('user');
@@ -24,5 +51,5 @@ const getUser = () => {
 };
 
 export const userService = {
-    login, logout, getUser
+    login, logout, getUser, register, sendOtp, verifyOtp
 };

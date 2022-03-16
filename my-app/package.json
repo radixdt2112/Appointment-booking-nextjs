@@ -23,9 +23,11 @@
     "mongoose": "^6.2.4",
     "next": "12.1.0",
     "next-connect": "^0.12.2",
+    "nodemailer": "^6.7.2",
     "prop-types": "^15.8.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-otp-input": "^2.4.0",
     "react-query": "^3.34.16",
     "react-redux": "^7.2.6",
     "yup": "^0.32.11"
