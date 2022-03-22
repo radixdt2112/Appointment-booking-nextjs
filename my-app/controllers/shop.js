@@ -1,7 +1,7 @@
 const ShopModel = require('../models/shops');
 
 export const getShops = async (req, res) => {
-    const result = await ShopModel.find();
+    const result = await ShopModel.find({ isActive: true });
     if (result.length == 0) {
         res.status(404).send({ msg: 'Shops not found' });
     } else

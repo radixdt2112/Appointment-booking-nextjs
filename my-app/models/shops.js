@@ -11,6 +11,7 @@ const shopSchema = new mongoose.Schema({
         ref: "shop-wise-solts",
     }],
     availableSeats: { type: Number, default: 1 },
+    isActive: { type: Boolean, default: false }
 
 }, {
     timestamps: true
