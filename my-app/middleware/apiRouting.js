@@ -8,15 +8,18 @@ const getAccessRoutes = async (req, res, next, Name) => {
         const token = authHeader.split(" ")[1];
         try {
             var decoded = jwt.verify(token, "AppointmentBooking");
-            console.log(decoded);
-            const result = await RoleModel.findById({ _id: decoded.role });
-            console.log(result);
+            const result = await RoleModel.findById({ _id: decoded.role._id });
             isEmpty = Object.keys(result).length === 0;
-            console.log(isEmpty);
             if (!isEmpty) {
-                if (result.name == Name) {
+                if (Name === 'Check') {
                     next();
+                } else {
+                    if (result.name == Name) {
+                        next();
+                    }
                 }
+
+
             }
         } catch (ex) {
             unauthorized(res);
@@ -37,10 +40,14 @@ export const adminRoute = async (req, res, next) => {
     getAccessRoutes(req, res, next, 'Super Admin');
 };
 
-export const ShopOwnerRoutes = async (req, res) => {
+export const ShopOwnerRoutes = async (req, res, next) => {
     getAccessRoutes(req, res, next, 'Shop Owner');
 }
 
-export const userRoutes = async (req, res) => {
+export const userRoutes = async (req, res, next) => {
     getAccessRoutes(req, res, next, 'User');
+}
+
+export const chkForValidToken = async (req, res, next) => {
+    getAccessRoutes(req, res, next, 'Check');
 }

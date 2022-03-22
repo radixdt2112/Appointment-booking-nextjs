@@ -46,10 +46,18 @@ const logout = () => {
     localStorage.removeItem('user');
 };
 
+const getUserById = (params) => {
+    // console.log(params);
+    return fetchWrapper.get(`${baseUrl}/users/${params}`)
+        .then((response) => {
+            return response.data;
+        });
+}
+
 const getUser = () => {
     return JSON.parse(localStorage.getItem('user'));
 };
 
 export const userService = {
-    login, logout, getUser, register, sendOtp, verifyOtp
+    login, logout, getUser, register, sendOtp, verifyOtp, getUserById
 };

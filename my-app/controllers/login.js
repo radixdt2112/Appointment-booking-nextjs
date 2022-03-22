@@ -4,19 +4,25 @@ const jwt = require('jsonwebtoken');
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
-    const result = await UserModel.find({ email: email, isActive: true });
-    if (result.length === 0) {
-        return res.status(404).send({ msg: "register first" });
-    } else {
-        const check = await verify(password, result[0].password)
+    let result = await UserModel.findOne({ email: email, isActive: true }).select('-__v -isActive -otp').populate('role');
+
+
+    if (!!result) {
+        const check = await verify(password, result.password)
         if (check) {
             const token = jwt.sign({ email: email, role: result.role }, 'AppointmentBooking', { expiresIn: '3d' });
-            console.log(result);
-            return res.send({ name: result[0].name, jwtToken: token, role: result[0].role });
+            return res
+                .send({
+                    name: result.name, email: result.email, role: result.role["name"],
+                    contactNo: result.contactNo, gender: result.gender, id: result.id, jwtToken: token
+                });
         }
         else {
             return res.status(404).send('email and password not matched');
         }
+
+    } else {
+        return res.status(404).send({ msg: "register first" });
     }
 
 }

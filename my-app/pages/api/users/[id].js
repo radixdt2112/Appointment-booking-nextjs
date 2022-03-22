@@ -1,10 +1,10 @@
 import nc from "next-connect";
-import { connectDB, adminRoute } from '../../../middleware';
+import { chkForValidToken, connectDB } from '../../../middleware';
 import { getUserById, updateUser, deleteUser } from '../../../controllers/users';
 
-const handler = nc({ attachParams: true }).use(adminRoute);
+const handler = nc({ attachParams: true });
 
-handler.get(getUserById);
+handler.use(chkForValidToken).get(getUserById);
 handler.put(updateUser);
 handler.delete(deleteUser);
 

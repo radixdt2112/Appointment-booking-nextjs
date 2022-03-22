@@ -9,13 +9,14 @@ import { Formik, Field, Form } from 'formik';
 import { TextField } from 'formik-mui';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { loginUser } from '../_features/users/usersSlice';
+import { loginUser, selectActiveUser } from '../_features/users/usersSlice';
 import { getLoadingState, activateLoading, deactivateLoading } from '../_features/globals/loadingSlice';
 import CircularProgress from '@mui/material/CircularProgress';
 import { loginSchema } from '../_constants/formValidationSchema';
-
+import Layout from '../layouts/HomePage';
 
 const Login = () => {
+
     const [initialValues, setIntialValues] = React.useState({
         email: '',
         password: ''
@@ -24,6 +25,7 @@ const Login = () => {
     const [isError, setIsError] = React.useState(false);
     const dispatch = useDispatch();
     const isLoading = useSelector(getLoadingState);
+    const activeUser = useSelector(selectActiveUser);
 
     const handleSubmit = async (values, resetForm) => {
         try {
@@ -41,8 +43,12 @@ const Login = () => {
         }
     };
 
+    if (!!activeUser) {
+        router.push('/');
+    }
+
     return (
-        <div>
+        <Layout>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
@@ -161,8 +167,9 @@ const Login = () => {
                     }
                 </Grid>
             </Grid>
-        </div>
+        </Layout>
     )
 }
 
 export default Login;
+

@@ -47,6 +47,7 @@ const OtpModal = ({ setConfirmBox, confirmBox, formValues }) => {
     }
 
     const resendOtp = async (formValues) => {
+        setMessage("");
         try {
             setConfirmBox(false);
             setIsLoading(true);
@@ -56,7 +57,7 @@ const OtpModal = ({ setConfirmBox, confirmBox, formValues }) => {
         } catch (ex) {
             console.log(ex);
             setIsError(true);
-            setMessage("");
+
         }
     }
     return (
@@ -129,7 +130,7 @@ const OtpModal = ({ setConfirmBox, confirmBox, formValues }) => {
                             alignItems="center"
                             direction="column"
                         >
-                            <Grid item spacing={3} justify="center">
+                            <Grid item justify="center">
                                 <OtpInput
                                     separator={
                                         <span>

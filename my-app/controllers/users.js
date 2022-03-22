@@ -7,12 +7,13 @@ export const getUsers = async (req, res) => {
 };
 
 export const getUserById = async (req, res) => {
-    const result = await UserModel.findById(req.query.id).select('-__v -createdAt');
-    console.log(result);
+    // console.log(req.query.id);
+    const result = await UserModel.findById(req.query.id).select('-__v -isActive -otp -password ').populate('role');
+    // console.log(result);
     if (!result) {
-        return res.send('error');
+        return res.status(404).send('error');
     } else {
-        return res.send(result);
+        return res.send({ name: result.name, email: result.email, role: result.role["name"], contactNo: result.contactNo, gender: result.gender, id: result.id });
     }
 
 };

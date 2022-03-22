@@ -11,6 +11,7 @@ export const fetchWrapper = {
 };
 
 function get(url) {
+    console.log(url);
     const requestOptions = {
         method: 'GET',
         headers: authHeader(url),

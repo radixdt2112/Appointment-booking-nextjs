@@ -12,7 +12,7 @@ import { Formik, Field, Form } from 'formik';
 import { TextField } from 'formik-mui';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { registerUser } from '../_features/users/usersSlice';
+import { registerUser, selectActiveUser } from '../_features/users/usersSlice';
 import { useMutation } from 'react-query';
 
 import { getLoadingState, activateLoading, deactivateLoading } from '../_features/globals/loadingSlice';
@@ -20,7 +20,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { registerSchema } from '../_constants/formValidationSchema';
 import OtpModal from '../components/modals/otpModal';
 import { userService } from '../_services';
-
+import Layout from '../layouts/HomePage';
 const Register = () => {
     const [initialValues, setIntialValues] = useState({
         firstName: '',
@@ -39,6 +39,7 @@ const Register = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const isLoading = useSelector(getLoadingState);
+    const activeUser = useSelector(selectActiveUser);
 
     const sendMail = useMutation(async (email) => {
         return userService.sendOtp({ email: email })
@@ -95,8 +96,12 @@ const Register = () => {
         }
     };
 
+    if (!!activeUser) {
+        router.push('/');
+    }
+
     return (
-        <div>
+        <Layout>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
@@ -279,9 +284,10 @@ const Register = () => {
             <OtpModal setConfirmBox={setConfirmBox} confirmBox={confirmBox} formValues={formData} />
 
 
-        </div >
+        </Layout>
     )
 }
 
 export default Register;
+
 
