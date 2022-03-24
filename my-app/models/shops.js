@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const shopSchema = new mongoose.Schema({
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+    },
     name: { type: String, required: true },
     email: { type: String, required: true },
     contactNo: { type: String, required: true },
@@ -10,6 +14,7 @@ const shopSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "shop-wise-solts",
     }],
+    info: { type: String },
     availableSeats: { type: Number, default: 1 },
     isActive: { type: Boolean, default: false }
 

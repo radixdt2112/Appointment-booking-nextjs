@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AdminPage = ({ children }) => {
+export const AdminPage = ({ children }) => {
     console.log(children);
     return (
         <div>
@@ -9,4 +9,3 @@ const AdminPage = ({ children }) => {
         </div>
     )
 }
-export default AdminPage;

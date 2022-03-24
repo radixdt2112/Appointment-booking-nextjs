@@ -30,6 +30,7 @@
     "react-otp-input": "^2.4.0",
     "react-query": "^3.34.16",
     "react-redux": "^7.2.6",
+    "recharts": "^2.1.9",
     "yup": "^0.32.11"
   },
   "devDependencies": {

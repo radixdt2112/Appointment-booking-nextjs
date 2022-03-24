@@ -2,7 +2,7 @@
 import React from 'react'
 // import Navbar from '../components/Navbar';
 import { Footer, ResponsiveAppBar } from '../components';
-const HomePage = ({ children }) => {
+export const HomePage = ({ children }) => {
 
 
     return (
@@ -15,4 +15,3 @@ const HomePage = ({ children }) => {
         </>
     )
 }
-export default HomePage;

@@ -32,17 +32,26 @@ export const register = async (req, res) => {
     if (result.length == 0) {
         return res.status(500).send({ msg: 'something wrong' });
     } else {
-
-        const findUser = await UserModel.find({ email: req.body.email });
-        if (findUser.length > 0) {
-            return res.status(200).send({ msg: 'already Registered' });
-        }
-
         const { password } = req.body;
         const encryptPassword = await hash(password);
         const data = { ...req.body, role: result[0].id, password: encryptPassword };
 
         const userObj = new UserModel(data);
+
+        const findUser = await UserModel.find({ email: req.body.email });
+        if (findUser.length > 0) {
+
+            if (findUser.isActive) {
+                return res.status(200).send({ msg: 'already Registered' });
+            } else {
+                const result = await UserModel.findByIdAndUpdate(findUser.id, {
+                    $set: data
+                }, { new: true });
+                return res.status(201).send({ msg: 'registerd successfully' });
+            }
+        }
+
+
         try {
             console.log(data);
             const result = await userObj.save();

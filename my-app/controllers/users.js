@@ -1,8 +1,10 @@
 const UserModel = require('../models/users');
+const ServiceModel = require('../models/services');
 import { verify, hash } from './login';
 
 export const getUsers = async (req, res) => {
     const result = await UserModel.find().select('-__v').populate('role', '-__v -createdAt -updatedAt');
+    await ServiceModel.find();
     return res.send(result);
 };
 

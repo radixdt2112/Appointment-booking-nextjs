@@ -182,11 +182,19 @@ export const ResponsiveAppBar = () => {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center" onClick={() => router.push(`${setting.url}`)}>{setting.name}</Typography>
-                                    </MenuItem>
-                                ))}
+                                {settings.map((setting) => {
+                                    if (setting.AccessBy == activeUser.role) {
+                                        return <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                                            <Typography textAlign="center" onClick={() => router.push(`${setting.url}`)}>{setting.name}</Typography>
+                                        </MenuItem>
+                                    } else {
+                                        if (setting.AccessBy == '') {
+                                            return <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                                                <Typography textAlign="center" onClick={() => router.push(`${setting.url}`)}>{setting.name}</Typography>
+                                            </MenuItem>
+                                        }
+                                    }
+                                })}
                                 <MenuItem> <Typography textAlign="center" onClick={handleLogout}>Logout</Typography></MenuItem>
                             </Menu>
                         </Box>

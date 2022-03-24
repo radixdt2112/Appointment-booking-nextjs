@@ -13,7 +13,7 @@ import { loginUser, selectActiveUser } from '../_features/users/usersSlice';
 import { getLoadingState, activateLoading, deactivateLoading } from '../_features/globals/loadingSlice';
 import CircularProgress from '@mui/material/CircularProgress';
 import { loginSchema } from '../_constants/formValidationSchema';
-import Layout from '../layouts/HomePage';
+import { HomePage } from '../layouts';
 
 const Login = () => {
 
@@ -38,6 +38,7 @@ const Login = () => {
             setIsError(false);
         } catch (ex) {
             dispatch(deactivateLoading());
+
             console.log(ex);
             setIsError(true);
         }
@@ -48,7 +49,7 @@ const Login = () => {
     }
 
     return (
-        <Layout>
+        <HomePage>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
@@ -86,7 +87,7 @@ const Login = () => {
                                 <LockOutlinedIcon />
                             </Avatar>
                             <Typography component="h1" variant="h5">
-                                Sign in
+                                Login
                             </Typography>
                             {isError &&
                                 <Box sx={{ mt: 3 }}>
@@ -167,7 +168,7 @@ const Login = () => {
                     }
                 </Grid>
             </Grid>
-        </Layout>
+        </HomePage>
     )
 }
 

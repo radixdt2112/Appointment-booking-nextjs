@@ -36,7 +36,7 @@ const verifyOtp = (params) => {
     return fetchWrapper
         .post(`${baseUrl}/verifyOtp`, params)
         .then((response) => {
-            console.log('>>>>>>>>>>>>>>>>>  ', response.data);
+            // console.log('>>>>>>>>>>>>>>>>>  ', response.data);
             const data = response.data;
             return data;
         })

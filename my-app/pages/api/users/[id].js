@@ -4,7 +4,8 @@ import { getUserById, updateUser, deleteUser } from '../../../controllers/users'
 
 const handler = nc({ attachParams: true });
 
-handler.use(chkForValidToken).get(getUserById);
+handler.get(getUserById);
+// .use(chkForValidToken)
 handler.put(updateUser);
 handler.delete(deleteUser);
 

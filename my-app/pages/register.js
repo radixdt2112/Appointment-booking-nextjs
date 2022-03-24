@@ -20,7 +20,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { registerSchema } from '../_constants/formValidationSchema';
 import OtpModal from '../components/modals/otpModal';
 import { userService } from '../_services';
-import Layout from '../layouts/HomePage';
+import { HomePage } from '../layouts';
 const Register = () => {
     const [initialValues, setIntialValues] = useState({
         firstName: '',
@@ -69,9 +69,11 @@ const Register = () => {
                 console.log(data);
                 switch (data.msg) {
                     case 'already Registered':
+                        dispatch(deactivateLoading());
                         setMessage("Already Registered User");
                         break;
                     case 'registerd successfully':
+
                         sendMail.mutate(values.email);
 
 
@@ -80,6 +82,7 @@ const Register = () => {
                         // router.push('/login');
                         break;
                     default:
+                        dispatch(deactivateLoading());
                         setMessage('Something went wrong !!');
                         break;
                 }
@@ -101,7 +104,7 @@ const Register = () => {
     }
 
     return (
-        <Layout>
+        <HomePage>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
@@ -139,7 +142,7 @@ const Register = () => {
                                 <HowToRegIcon />
                             </Avatar>
                             <Typography component="h1" variant="h5">
-                                Sign Up
+                                Register
                             </Typography>
                             {message.length > 0 &&
                                 <Box sx={{ mt: 3 }}>
@@ -284,7 +287,7 @@ const Register = () => {
             <OtpModal setConfirmBox={setConfirmBox} confirmBox={confirmBox} formValues={formData} />
 
 
-        </Layout>
+        </HomePage>
     )
 }
 
