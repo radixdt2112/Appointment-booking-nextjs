@@ -10,7 +10,7 @@ export const getShops = async (req, res) => {
     if (!!req.query.shopName) {
         result = await ShopModel.find({ isActive: true, name: { $regex: regexp } }).select('-__v ').populate("address", '-__v');
     } else
-        result = await ShopModel.find({ isActive: true }).select('-__v ').populate("address", '-__v');
+        result = await ShopModel.find({ isActive: true }).select('-__v ').populate("address", '-__v').populate("services");
     // console.log(result);
     if (result.length == 0) {
         return res.status(404).send({ msg: 'Shops not found' });

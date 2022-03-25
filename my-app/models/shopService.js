@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const shopServiceSchema = new mongoose.Schema({
-    shop: { type: mongoose.Schema.Types.ObjectId, ref: 'shops', required: true },
+    // shop: { type: mongoose.Schema.Types.ObjectId, ref: 'shops', required: true }, //not 
     service: { type: mongoose.Schema.Types.ObjectId, ref: 'services', required: true },
     price: { type: Number, required: true, default: 0 },
     img: [{ type: String }],

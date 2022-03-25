@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const slotManageSchema = new mongoose.Schema({
 
-    shopId: { type: mongoose.Schema.Types.ObjectId, ref: 'shops', required: true },
+    // shopId: { type: mongoose.Schema.Types.ObjectId, ref: 'shops', required: true },//not
     timeStart: { type: String, required: true },
     timeEnd: { type: String, required: true },
     availableSlots: { type: Number, required: true, default: 0 }

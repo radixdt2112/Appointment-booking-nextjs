@@ -1,6 +1,7 @@
 const UserModel = require('../models/users');
 const ServiceModel = require('../models/services');
 import { verify, hash } from './login';
+const ShopServicesModel = require("../models/shopService");
 
 export const getUsers = async (req, res) => {
     const result = await UserModel.find().select('-__v').populate('role', '-__v -createdAt -updatedAt');
@@ -19,26 +20,45 @@ export const getUserById = async (req, res) => {
     }
 
 };
-
 export const addUser = async (req, res) => {
 
-    const result = await UserModel.find({ email: { $in: [req.body.email] } });
+    // const result = await ShopServicesModel.find({ email: { $in: [req.body.email] } });
 
-    if (result.length == 0) {
-        const userObj = new UserModel(req.body);
-        try {
-            const result = await userObj.save();
-            res.send(result);
-        } catch (ex) {
-            console.log(ex);
-            res.status(400).send('Error');
-        }
-    } else {
-        res.send({ message: 'User already exits' })
+    // if (result.length == 0) {
+    const userObj = new ShopServicesModel(req.body);
+    try {
+        const result = await userObj.save();
+        res.send(result);
+    } catch (ex) {
+        console.log(ex);
+        res.status(400).send('Error');
     }
+    // } else {
+    //     res.send({ message: 'User already exits' })
+    // }
 
 
 }
+
+// export const addUser = async (req, res) => {
+
+//     const result = await UserModel.find({ email: { $in: [req.body.email] } });
+
+//     if (result.length == 0) {
+//         const userObj = new UserModel(req.body);
+//         try {
+//             const result = await userObj.save();
+//             res.send(result);
+//         } catch (ex) {
+//             console.log(ex);
+//             res.status(400).send('Error');
+//         }
+//     } else {
+//         res.send({ message: 'User already exits' })
+//     }
+
+
+// }
 
 export const updateUser = async (req, res) => {
     try {

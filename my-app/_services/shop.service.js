@@ -9,6 +9,8 @@ export const getShops = (shopName) => {
             return response.data;
         });
 }
+
+
 // export const updateShop = (params) =>{
 //     return fetchWrapper.put
 // }

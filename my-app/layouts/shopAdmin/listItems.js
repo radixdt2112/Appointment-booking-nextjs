@@ -13,25 +13,31 @@ import { useRouter } from 'next/router';
 import MoreTimeOutlinedIcon from '@mui/icons-material/MoreTimeOutlined';
 import ManageHistoryOutlinedIcon from '@mui/icons-material/ManageHistoryOutlined';
 import EditIcon from '@mui/icons-material/Edit';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveTab } from '../../_features/shopAdmin/shopAdminSlice';
 
-const mainListItem = [
-    { name: "Dashboard", icon: <DashboardIcon />, url: "/shopAdmin", title: "Dashboard" },
-    { name: "Services", icon: <ShoppingCartIcon />, url: "/shopAdmin/services", title: "Services" },
-    { name: "Slots", icon: <MoreTimeOutlinedIcon />, url: "/shopAdmin/slots", title: "Slots" },
-    { name: "MSWS", icon: <ManageHistoryOutlinedIcon />, url: "/shopAdmin/slots", title: "Manage Slot Wise Seats" },
-    { name: "Shop Detail", icon: <EditIcon />, url: "/shopAdmin/shopDetail", title: "Shop Detail" }
-];
+
 
 
 export const MainListItem = () => {
     const router = useRouter();
+
+
+    const dispatch = useDispatch();
+    const mainListItem = [
+        // { name: "Dashboard", icon: <DashboardIcon />, url: "/shopAdmin", title: "Dashboard", tab: 0 },
+        { name: "Services", icon: <ShoppingCartIcon />, url: "/shopAdmin/services", title: "Services", tab: 0 },
+        { name: "Slots", icon: <MoreTimeOutlinedIcon />, url: "/shopAdmin/slots", title: "Slots", tab: 1 },
+        { name: "MSWS", icon: <ManageHistoryOutlinedIcon />, url: "/shopAdmin/slots", title: "Manage Slot Wise Seats", tab: 2 },
+        { name: "Shop Detail", icon: <EditIcon />, url: "/shopAdmin/shopDetail", title: "Shop Detail", tab: 3 }
+    ];
     return <React.Fragment>
         {mainListItem?.map((item) =>
-            <ListItemButton>
-                <ListItemIcon onClick={() => router.push(`${item.url}`)} title={!!item.title ? item.title : ''}>
+            <ListItemButton key={item.name} onClick={() => { dispatch(setActiveTab(item.tab)); }}>
+                <ListItemIcon title={!!item.title ? item.title : ''}>
                     {item.icon}
                 </ListItemIcon>
-                <ListItemText title={!!item.title ? item.title : ''} primary={item.name} onClick={() => router.push(`${item.url}`)} />
+                <ListItemText title={!!item.title ? item.title : ''} primary={item.name} />
             </ListItemButton>
         )}
         {/* <ListItemButton>
@@ -41,7 +47,7 @@ export const MainListItem = () => {
             <ListItemText primary="Current month" />
         </ListItemButton> */}
 
-    </React.Fragment>
+    </React.Fragment >
 
 
 }

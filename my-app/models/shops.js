@@ -12,8 +12,14 @@ const shopSchema = new mongoose.Schema({
     img: [{ type: String }],
     slots: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "shop-wise-solts",
+        ref: "slotManage",
     }],
+    //services
+    services: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "shopServices",
+    }],
+    //
     info: { type: String },
     availableSeats: { type: Number, default: 1 },
     isActive: { type: Boolean, default: false }

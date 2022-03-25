@@ -105,6 +105,7 @@ function DashboardContent({ children }) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
     const handleLogout = () => {
         // console.log('logout');
         dispatch(logoutUser());
@@ -172,7 +173,8 @@ function DashboardContent({ children }) {
                         {/* </IconButton> */}
                     </Toolbar>
                 </AppBar>
-                <Drawer variant="permanent" open={open}>
+                <Drawer variant="permanent" open={open} >
+
                     <Toolbar
                         sx={{
                             display: 'flex',
@@ -193,11 +195,10 @@ function DashboardContent({ children }) {
                     </List>
                 </Drawer>
                 <Box
-                    component="main"
                     sx={{
                         backgroundColor: (theme) =>
                             theme.palette.mode === 'light'
-                                ? theme.palette.grey[50]
+                                ? '#e5ebf3'
                                 : theme.palette.grey[900],
                         flexGrow: 1,
                         height: '100vh',
@@ -205,12 +206,10 @@ function DashboardContent({ children }) {
                     }}
                 >
                     <Toolbar />
-                    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                    <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
                             {children}
-
                         </Grid>
-                        {/* <Copyright sx={{ pt: 4 }} /> */}
                     </Container>
                 </Box>
             </Box>
@@ -219,5 +218,6 @@ function DashboardContent({ children }) {
 }
 
 export function Dashboard({ children }) {
+
     return <DashboardContent children={children} />;
 }
